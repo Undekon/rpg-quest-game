@@ -2,7 +2,7 @@ import pygame
 
 from camera import *
 from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH
-from physics import check_collision
+from physics import check_collision, check_collisions_with_objects
 
 class Player:
     def __init__(self, image, speed):
@@ -14,6 +14,7 @@ class Player:
         self.y_cord = 0
         self.speed = speed
         self.direction = 0 #0 - right, 1 - left
+        self.player_rect = pygame.Rect(self.x_cord, self.y_cord, self.width, self.height)
 
         self.hitbox = 0 
 
@@ -22,9 +23,13 @@ class Player:
         self.stamina = 100
         self.mana = 100
 
-    def handle_movement(self, keys, map):
+    def handle_movement(self, keys, map, collision_objects):
         old_x = self.x_cord
         old_y = self.y_cord
+
+        #update player rect
+        self.player_rect.x = self.x_cord
+        self.player_rect.y = self.y_cord
 
         #Running
         if keys[pygame.K_LSHIFT] and self.stamina > 0:
@@ -47,7 +52,7 @@ class Player:
             self.direction = 0
 
         #check for collisions
-        if check_collision(self, map):
+        if check_collision(self, map) or check_collisions_with_objects(self, collision_objects):
             self.x_cord = old_x
             self.y_cord = old_y
 
@@ -87,10 +92,10 @@ class Player:
         self.health -= dmg_value
 
     def handle_interaction(self, interactables, keys):
-        player_rect = pygame.Rect(self.x_cord, self.y_cord, self.width, self.height)
-
         for object in interactables:
-            if object.check_interaction(player_rect, keys):
+            if object.check_interaction(self.player_rect, keys):
                 object.interact()
                 break
+
+
     

@@ -2,11 +2,12 @@ import pygame
 from camera import world_to_screen
 
 class TileKind:
-    def __init__(self, name, image, is_solid, id):
+    def __init__(self, name, image, is_solid, id, type):
         self.name = name
         self.image = pygame.image.load(image)
         self.is_solid = is_solid
         self.id = id
+        self.type = type
 
 class Map:
     def __init__(self, map_file, tile_kinds, tile_size):
@@ -14,13 +15,18 @@ class Map:
         self.tile_size = tile_size
 
         #Load map file
-        file = open(map_file, "r")
-        data = file.read()
-        file.close
+        map_file = open(map_file, "r")
+        map_data = map_file.read()
+        map_file.close
+
+        #Load objects file 
+        # object_file = open(object_file, "r")
+        # objects_data = object_file.read()
+        # object_file.close()
 
         #Setup tiles from map data
         self.tiles = []
-        for line in data.split("\n"):
+        for line in map_data.split("\n"):
             row = []
             for tile_number in line:
                 row.append(int(tile_number))
@@ -28,6 +34,14 @@ class Map:
 
         #Setup objects on map
         #----NPCS
+        # self.objects = []
+        # for line in objects_data.split("\n"):
+        #     row = []
+        #     for tile_number in line:
+        #         #NPCS
+        #         if tile_number >= 100 and tile_number < 200:
+        #             row.append(int(tile_number))
+        #         self.objects.append(row)
         
 
     def draw(self, surface):
@@ -38,7 +52,8 @@ class Map:
                 image = self.tile_kinds[tile].image
                 surface.blit(image, world_to_screen(location))
         
-        #Draw NPCs
+        #Draw objects
+
 
 def load_tile_kinds(tile_data):
-    return [TileKind(tile["name"], tile['image'], tile['is_solid'], tile['id']) for tile in tile_data]
+    return [TileKind(tile["name"], tile['image'], tile['is_solid'], tile['id'], tile['type']) for tile in tile_data]

@@ -17,4 +17,10 @@ def check_collision(player, map):
                     return True
     return False
 
-
+def check_collisions_with_objects(player, objects):
+    new_rect = pygame.Rect(player.x_cord, player.y_cord, player.width, player.height)
+    for obj in objects:
+        if obj.is_solid:
+            if new_rect.colliderect(obj.rect):
+                return True
+    return False

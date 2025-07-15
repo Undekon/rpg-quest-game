@@ -5,23 +5,23 @@ from camera import world_to_screen
 
 class NPC(Interactable):
     def __init__(self, name, image, x, y, npc_id, quest_id):
-        super().__init__(x,y,32,32)
         self.image = pygame.image.load(image)
         self.name = name
         self.npc_id = npc_id
         self.quest_id = quest_id
-        self.x_cord = x
-        self.y_cord = y
+
+        self.is_solid = True
+        super().__init__(x,y,32,32)
+        
 
     def draw(self, surface):
-        surface.blit(self.image, world_to_screen((self.x_cord, self.y_cord)))
+        surface.blit(self.image, world_to_screen((self.x, self.y)))
 
         #### DEBUG
         self.draw_interaction_elements(surface)
 
     def interact(self):
         print(f"Interaction with: {self.name}")
-            
 
     def load_quest():
         pass

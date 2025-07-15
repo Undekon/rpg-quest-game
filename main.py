@@ -10,8 +10,12 @@ from npc import load_npcs
 #Setup
 window = create_screen(WINDOW_WIDTH, WINDOW_HEIGHT, "rpg-quest-game")
 tile_kinds = load_tile_kinds(TILE_DATA)
-map = Map("maps/start.map", tile_kinds, TILE_SIZE)
 npcs = load_npcs(NPC_DATA)
+chests = []
+enemies = []
+trees = []
+map = Map("maps/start.map", tile_kinds, TILE_SIZE)
+solid_objects = npcs + chests + enemies + trees
 
 def main():
     run = True
@@ -37,7 +41,7 @@ def main():
         #-----DRAW-----
         window.fill((0,0,0))
         map.draw(window)
-        player.handle_movement(keys, map)
+        player.handle_movement(keys, map, solid_objects)
         player.draw(window)
         player.draw_hud(window)
         for npc in interactables:

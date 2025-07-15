@@ -10,6 +10,7 @@ class Interactable:
         self.x = x
         self.y = y
         self.show_icon = False
+        self.rect = pygame.Rect(self.x, self.y, width, height)
 
     def check_interaction(self, player_rect, keys):
         self.show_icon = self.interaction_area.colliderect(player_rect)
