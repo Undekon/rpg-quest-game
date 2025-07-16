@@ -12,11 +12,12 @@ PLAYER_IMAGE = "assets/sprites/player.png"
 #TILES
 TILE_SIZE = 32
 TILE_DATA = [
-    {"name": "grass", "image": "assets/sprites/grass.png", "is_solid": False, "id": 0, "type": 'map'},
+    {"name": "grass", "image": "assets/sprites/grass1.png", "is_solid": False, "id": 0, "type": 'map'},
     {"name": "path", "image": "assets/sprites/path.png", "is_solid": False, "id": 1, "type": 'map'},
     {"name": "water", "image": "assets/sprites/water.png", "is_solid": True, "id": 2, "type": 'map'},
     {"name": "barrier", "image": "assets/sprites/barrier.png", "is_solid": True, "id": 3, "type": 'map'},
-    {"name": "chest", "image": "assets/sprites/chest.png", "is_solid": True, "id": 14, "type": 'object'},
+    {"name": "bush", "image": "assets/sprites/bush.png", "is_solid": False, "id": 4, "type": 'map'},
+    {"name": "grass_flowers", "image": "assets/sprites/grass2.png", "is_solid": False, "id": 5, "type": 'map'},
 ]
 
 #MAP
@@ -26,14 +27,33 @@ MAP_HEIGHT = 64
 #OBJECTS
 #---NPC LIST
 NPC_DATA = [
-    {"name": "Bob", "image": "assets/sprites/npc_test.png", "x": 150, "y": 150, "id": 0, "quest_id": 1},
-    {"name": "Jess", "image": "assets/sprites/npc_test.png", "x": 150, "y": 500, "id": 1, "quest_id": 2}
+    {"name": "Bob", "image": "assets/sprites/npc_test.png", "id": 0, "quest_id": 0},
+    {"name": "Jess", "image": "assets/sprites/npc_test.png", "id": 1, "quest_id": 1},
+    {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 2, "quest_id": 1}
 ]
 
 #---CHESTS
 CHEST_DATA = [
-
+    {"chest_id": 0, 
+     "image": "assets/sprites/chest.png",""
+     "type": "regular", 
+     "content": ["sword"]},
+    {"chest_id": 1, 
+     "image": "assets/sprites/chest.png",
+     "type": "epic", 
+     "content": ["potion"]}
 ]
 
 #---ENEMIES
+TREES = [
+    {'tree_id': 1, "image": "assets/sprites/tree1.png"}
+]
+
+#---GENERAL
+OBJECT_LIST = {
+    1: {"type": "chest", "data": CHEST_DATA[0]},
+    2: {'type': 'npc', 'data': NPC_DATA[0]},
+    3: {'type': 'npc', 'data': NPC_DATA[2]},
+    4: {'type': 'tree', 'data': TREES[0]}
+}
 

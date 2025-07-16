@@ -3,6 +3,7 @@ import pygame
 from camera import *
 from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH
 from physics import check_collision, check_collisions_with_objects
+from interactable import Interactable
 
 class Player:
     def __init__(self, image, speed):
@@ -69,7 +70,6 @@ class Player:
         if self.direction == 1:
             self.image = pygame.transform.flip(self.org_image, True, False)
 
-        
         surface.blit(self.image, world_to_screen((self.x_cord, self.y_cord)))
 
     def draw_hud(self, surface):
@@ -93,9 +93,10 @@ class Player:
 
     def handle_interaction(self, interactables, keys):
         for object in interactables:
-            if object.check_interaction(self.player_rect, keys):
-                object.interact()
-                break
+            if isinstance(object, Interactable):
+                if object.check_interaction(self.player_rect, keys):
+                    object.interact()
+                    break
 
 
     
