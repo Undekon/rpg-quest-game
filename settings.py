@@ -8,6 +8,8 @@ FPS = 60
 #PLAYER
 PLAYER_SPEED = 3
 PLAYER_IMAGE = "assets/sprites/player.png"
+INVENTORY_SLOTS = 10
+DECK_SLOTS = 5
 
 #TILES
 TILE_SIZE = 32
@@ -57,3 +59,8 @@ OBJECT_LIST = {
     4: {'type': 'tree', 'data': TREES[0]}
 }
 
+#CARDS
+CARD_DATA = [
+    {"id": 0, "name": "basic_attack", "image": 'assets/cards/attack_card.png', "description": 'Basic attack card', "dmg": 4, 'mana': 4, 'defense': 0},
+    {"id": 1, "name": "basic_defense", "image": 'assets/cards/defense_card.png', "description": 'Basic defense card', "dmg": 0, 'mana': 4, 'defense': 4}
+]

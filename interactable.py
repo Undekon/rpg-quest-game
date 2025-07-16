@@ -15,6 +15,7 @@ class Interactable:
     def check_interaction(self, player_rect, keys):
         self.show_icon = self.interaction_area.colliderect(player_rect)
         if self.interaction_area.colliderect(player_rect) and keys[self.interact_key]:
+            pygame.time.delay(200)
             return True
         return False
 

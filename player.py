@@ -4,6 +4,7 @@ from camera import *
 from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH
 from physics import check_collision, check_collisions_with_objects
 from interactable import Interactable
+from inventory import Inventory
 
 class Player:
     def __init__(self, image, speed):
@@ -17,7 +18,7 @@ class Player:
         self.direction = 0 #0 - right, 1 - left
         self.player_rect = pygame.Rect(self.x_cord, self.y_cord, self.width, self.height)
 
-        self.hitbox = 0 
+        self.inventory = Inventory()
 
         #Stats
         self.health = 100
@@ -63,6 +64,11 @@ class Player:
 
         #update camera
         update_camera(self, MAP_WIDTH, MAP_HEIGHT, TILE_SIZE)
+
+        #Show inventory
+        if keys[pygame.K_i]:
+            self.inventory.toggle()
+            pygame.time.delay(200)
     
     def draw(self, surface):
         if self.direction == 0:

@@ -6,6 +6,8 @@ from player import Player
 from map import Map, load_tile_kinds
 from camera import create_screen
 
+pygame.init()
+
 #Setup
 window = create_screen(WINDOW_WIDTH, WINDOW_HEIGHT, "rpg-quest-game")
 tile_kinds = load_tile_kinds(TILE_DATA)
@@ -34,6 +36,7 @@ def main():
         player.handle_movement(keys, map, map.objects_on_map)
         player.draw_hud(window)
         player.handle_interaction(map.objects_on_map, keys)
+        player.inventory.draw(window)
 
         pygame.display.update()
 
