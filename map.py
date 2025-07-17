@@ -99,7 +99,14 @@ class Map:
         player.draw(surface)
         #Draw objects
         for obj in self.objects_on_map:
+            if isinstance(obj, NPC):
+                continue
             obj.draw(surface)
+        
+        #Draw npcs at the end
+        for obj in self.objects_on_map:
+            if isinstance(obj, NPC):
+                obj.draw(surface)
 
 def load_tile_kinds(tile_data):
     return [TileKind(tile["name"], 

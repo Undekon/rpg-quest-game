@@ -14,12 +14,10 @@ class Chest(Interactable):
         super().__init__(x,y, 32, 32)
 
     def interact(self):
-        print(f"Interaction with chest: {self.id}, content: {self.content}")
+        print(f"[Chest]: Interaction with chest: {self.id}, content: {self.content}")
 
     def draw(self, surface):
             surface.blit(self.image, world_to_screen((self.x, self.y)))
-
-            #### DEBUG
             self.draw_interaction_elements(surface)
 
 class Doors(Interactable):
@@ -45,8 +43,9 @@ class Tree:
         surface.blit(self.image, world_to_screen((self.x_cord, self.y_cord)))
         
         # DEBUG 
-        pygame.draw.rect(surface, (255, 0, 0), 
-                         pygame.Rect(world_to_screen((self.rect.x, self.rect.y)), 
-                         (self.rect.width, self.rect.height)), 1)
+        # pygame.draw.rect(surface, (255, 0, 0), 
+        #                  pygame.Rect(world_to_screen((self.rect.x, self.rect.y)), 
+        #                  (self.rect.width, self.rect.height)), 1)
+
 class Rock:
      pass

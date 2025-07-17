@@ -24,7 +24,9 @@ class Interactable:
             world_to_screen((self.interaction_area.x, self.interaction_area.y)),
             (self.interaction_area.width, self.interaction_area.height)
         )
-        pygame.draw.rect(surface, (255, 0, 0), screen_rect, 2)
+
+        #Debug area
+        # pygame.draw.rect(surface, (255, 0, 0), screen_rect, 2)
 
         if self.show_icon:
             surface.blit(self.interact_icon, world_to_screen((self.x - 3, self.y - 35)))

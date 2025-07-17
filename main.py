@@ -5,6 +5,7 @@ from settings import *
 from player import Player
 from map import Map, load_tile_kinds
 from camera import create_screen
+from quest_manager import QuestManager
 
 pygame.init()
 

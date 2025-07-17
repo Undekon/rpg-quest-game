@@ -1,0 +1,16 @@
+{
+    "0": {
+        "id": 1,
+        "greeting" : "Hello!",
+        "description" : "Kill Orc to get 5 gold reward.",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 5, "xp": 100}
+    },
+    "1": {
+        "id": 1,
+        "greeting" : "Hello!",
+        "description" : "Kill me to get 10 gold reward.",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 10, "xp": 100}
+    }
+}

@@ -5,6 +5,9 @@ WINDOW_WIDTH = 800
 #GAME
 FPS = 60
 
+#APPERANCE
+# FONT = 
+
 #PLAYER
 PLAYER_SPEED = 3
 PLAYER_IMAGE = "assets/sprites/player.png"
@@ -30,8 +33,7 @@ MAP_HEIGHT = 64
 #---NPC LIST
 NPC_DATA = [
     {"name": "Bob", "image": "assets/sprites/npc_test.png", "id": 0, "quest_id": 0},
-    {"name": "Jess", "image": "assets/sprites/npc_test.png", "id": 1, "quest_id": 1},
-    {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 2, "quest_id": 1}
+    {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 1, "quest_id": 1}
 ]
 
 #---CHESTS
@@ -55,7 +57,7 @@ TREES = [
 OBJECT_LIST = {
     1: {"type": "chest", "data": CHEST_DATA[0]},
     2: {'type': 'npc', 'data': NPC_DATA[0]},
-    3: {'type': 'npc', 'data': NPC_DATA[2]},
+    3: {'type': 'npc', 'data': NPC_DATA[1]},
     4: {'type': 'tree', 'data': TREES[0]}
 }
 
