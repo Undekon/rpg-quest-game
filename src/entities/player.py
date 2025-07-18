@@ -29,6 +29,7 @@ class Player:
 
         #Quests
         self.active_quests = []
+        self.max_active_quests = 5
 
     def handle_movement(self, keys, map, collision_objects):
         old_x = self.x_cord
@@ -132,7 +133,7 @@ class Player:
             print(f"[PlayerQuests]: Added new quest: {quest_data['id'], quest_data['description']}")
             print(f"[Player]: Active quests: {self.active_quests}")
             
-
+    #Handle chest interaction
 
 
     

@@ -94,8 +94,8 @@ class NPC(Interactable):
         self.visible_dialogue = False
 
     def interact(self):
+        self.toggle_dialogue()
         if not self.is_completed:
-            self.toggle_dialogue()
             print(f"[NPC] Interaction with: {self.name}")
             # print(f"NPC {self.npc_id} quest data: {self.quest_data}")
         else:

@@ -12,5 +12,33 @@
         "description" : "Kill me to get 10 gold reward.",
         "completed" : "I have no quests for you",
         "reward" : {"gold" : 10, "xp": 100}
+    },
+    "2": {
+        "id": 3,
+        "greeting" : "Hello!",
+        "description" : "test3",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 10, "xp": 100}
+    },
+    "3": {
+        "id": 4,
+        "greeting" : "Hello!",
+        "description" : "test4",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 10, "xp": 100}
+    },
+    "4": {
+        "id": 5,
+        "greeting" : "Hello!",
+        "description" : "test6",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 10, "xp": 100}
+    },
+    "5": {
+        "id": 6,
+        "greeting" : "Hello!",
+        "description" : "test6",
+        "completed" : "I have no quests for you",
+        "reward" : {"gold" : 10, "xp": 100}
     }
 }

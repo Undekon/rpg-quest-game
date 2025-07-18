@@ -74,7 +74,7 @@ class Map:
                                         curr_obj_data['data']['type'],
                                         curr_obj_data['data']['content'],
                                         tile_x,
-                                        y * self.tile_size)
+                                        tile_y)
                             objects_on_map.append(chest)
                         #NPCs
                         if curr_obj_data['type'] == "npc":
@@ -104,8 +104,8 @@ class Map:
                     image = self.tile_kinds[tile].image
                     surface.blit(image, world_to_screen(location))
         
-        player.draw(surface)
         #Draw objects
+        player.draw(surface)
         for obj in self.objects_on_map:
             if isinstance(obj, NPC):
                 continue

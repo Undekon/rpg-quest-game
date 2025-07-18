@@ -34,7 +34,12 @@ TILE_DATA = [
 #---NPC LIST
 NPC_DATA = [
     {"name": "Bob", "image": "assets/sprites/npc_test.png", "id": 0, "quest_id": 0},
-    {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 1, "quest_id": 1}
+    {"name": "Jess", "image": "assets/sprites/npc_test.png", "id": 1, "quest_id": 1},
+    {"name": "Anna", "image": "assets/sprites/npc_test.png", "id": 2, "quest_id": 2},
+    {"name": "John", "image": "assets/sprites/npc_test.png", "id": 3, "quest_id": 3},
+    {"name": "Karen", "image": "assets/sprites/npc_test.png", "id": 4, "quest_id": 4},
+    {"name": "Warrior", "image": "assets/sprites/npc_test.png", "id": 5, "quest_id": 5},
+    {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 6, "quest_id": 5}
 ]
 
 #---CHESTS
@@ -61,7 +66,12 @@ OBJECT_LIST = {
     2: {'type': 'npc', 'data': NPC_DATA[0]},
     3: {'type': 'npc', 'data': NPC_DATA[1]},
     4: {'type': 'tree', 'data': TREES[0]},
-    5: {'type': 'tree', 'data': TREES[1]}
+    5: {'type': 'tree', 'data': TREES[1]},
+    6: {'type': 'npc', 'data': NPC_DATA[2]},
+    7: {'type': 'npc', 'data': NPC_DATA[3]},
+    8: {'type': 'npc', 'data': NPC_DATA[4]},
+    9: {'type': 'npc', 'data': NPC_DATA[5]},
+    10: {'type': 'npc', 'data': NPC_DATA[6]},
 }
 
 #CARDS
