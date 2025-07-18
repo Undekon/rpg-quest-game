@@ -2,17 +2,17 @@ import pygame
 import sys
 
 from settings import *
-from player import Player
-from map import Map, load_tile_kinds
-from camera import create_screen
-from quest_manager import QuestManager
+from src.entities.player import Player
+from src.map.map import Map, load_tile_kinds
+from src.game.camera import create_screen
+from src.game.quest_manager import QuestManager
 
 pygame.init()
 
 #Setup
 window = create_screen(WINDOW_WIDTH, WINDOW_HEIGHT, "rpg-quest-game")
 tile_kinds = load_tile_kinds(TILE_DATA)
-map = Map("maps/start.map", 'maps/object_layer.map', tile_kinds, TILE_SIZE, OBJECT_LIST)
+map = Map("src/maps/start.map", 'src/maps/object_layer.map', tile_kinds, TILE_SIZE, OBJECT_LIST)
 
 def main():
     run = True

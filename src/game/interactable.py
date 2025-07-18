@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from camera import world_to_screen
+from src.game.camera import world_to_screen
 
 class Interactable:
     def __init__(self, x, y, width, height):
@@ -20,12 +20,8 @@ class Interactable:
         return False
 
     def draw_interaction_elements(self, surface):
-        screen_rect = pygame.Rect(
-            world_to_screen((self.interaction_area.x, self.interaction_area.y)),
-            (self.interaction_area.width, self.interaction_area.height)
-        )
-
         #Debug area
+        # screen_rect = pygame.Rect(world_to_screen((self.interaction_area.x, self.interaction_area.y)),(self.interaction_area.width, self.interaction_area.height))
         # pygame.draw.rect(surface, (255, 0, 0), screen_rect, 2)
 
         if self.show_icon:

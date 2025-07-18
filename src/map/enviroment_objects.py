@@ -1,6 +1,6 @@
 import pygame
-from interactable import Interactable
-from camera import world_to_screen
+from src.game.interactable import Interactable
+from src.game.camera import world_to_screen
 from settings import TILE_SIZE
 
 class Chest(Interactable):
@@ -28,24 +28,22 @@ class Tree:
         self.image = pygame.image.load(image)
         self.id = tree_id
         self.is_solid = True
-        self.x_cord = x
+        self.x_cord = x - 16
         self.y_cord = y - (96-32)
         self.width = 64
         self.height = 96
 
-        hitbox_width = TILE_SIZE
+        hitbox_width = TILE_SIZE//2
         hitbox_height = TILE_SIZE
-        self.rect = pygame.Rect(x + (self.width - hitbox_width)//2,
-                                y , 
-                                hitbox_width, hitbox_height)
+        self.rect = pygame.Rect(x + 8, y, hitbox_width, hitbox_height)
 
     def draw(self, surface):
         surface.blit(self.image, world_to_screen((self.x_cord, self.y_cord)))
         
         # DEBUG 
-        # pygame.draw.rect(surface, (255, 0, 0), 
-        #                  pygame.Rect(world_to_screen((self.rect.x, self.rect.y)), 
-        #                  (self.rect.width, self.rect.height)), 1)
+        pygame.draw.rect(surface, (255, 0, 0), 
+                         pygame.Rect(world_to_screen((self.rect.x, self.rect.y)), 
+                         (self.rect.width, self.rect.height)), 1)
 
 class Rock:
      pass

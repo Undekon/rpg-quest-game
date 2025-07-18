@@ -1,10 +1,10 @@
 import pygame
 
-from camera import *
+from src.game.camera import *
 from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH
-from physics import check_collision, check_collisions_with_objects
-from interactable import Interactable
-from inventory import Inventory
+from src.game.physics import check_collision, check_collisions_with_objects
+from src.game.interactable import Interactable
+from src.game.inventory import Inventory
 
 class Player:
     def __init__(self, image, speed):
@@ -18,12 +18,16 @@ class Player:
         self.direction = 0 #0 - right, 1 - left
         self.player_rect = pygame.Rect(self.x_cord, self.y_cord, self.width, self.height)
 
-        self.inventory = Inventory()
+        self.active_quests = []
 
         #Stats
         self.health = 100
         self.stamina = 100
         self.mana = 100
+        self.exp = 0
+        self.gold = 10
+
+        self.inventory = Inventory(self.gold, self.exp)
 
     def handle_movement(self, keys, map, collision_objects):
         old_x = self.x_cord
@@ -82,17 +86,24 @@ class Player:
         bar_width = 100
         bar_height = 10
 
+        hud_panel_width = 150
+        hud_panel_height = 60
+        hud_x = 0
+        hud_y = WINDOW_HEIGHT - hud_panel_height
+
+        pygame.draw.rect(surface, (50,50,70), (hud_x, hud_y, hud_panel_width, hud_panel_height))
+        pygame.draw.rect(surface, (100,100,120), (hud_x, hud_y, hud_panel_width, hud_panel_height), 2)
         #HP
-        pygame.draw.rect(surface, (50,50,50), (WINDOW_WIDTH-200, WINDOW_HEIGHT-200, bar_width, bar_height))
-        pygame.draw.rect(surface, (255, 70, 76), (WINDOW_WIDTH-200, WINDOW_HEIGHT-200, self.health, bar_height))
+        pygame.draw.rect(surface, (50,50,50), (hud_x + 10, hud_y + 10, bar_width, bar_height))
+        pygame.draw.rect(surface, (255, 70, 76), (hud_x + 10, hud_y + 10, self.health, bar_height))
 
         #STAMINA
-        pygame.draw.rect(surface, (50,50,50), (WINDOW_WIDTH-200, WINDOW_HEIGHT-185, bar_width, bar_height))
-        pygame.draw.rect(surface, (255, 255, 0), (WINDOW_WIDTH-200, WINDOW_HEIGHT-185, self.stamina, bar_height))
+        pygame.draw.rect(surface, (50,50,50), (hud_x + 10, hud_y + 25, bar_width, bar_height))
+        pygame.draw.rect(surface, (255, 255, 0), (hud_x + 10, hud_y + 25, self.stamina, bar_height))
 
         #MANA
-        pygame.draw.rect(surface, (50,50,50), (WINDOW_WIDTH-200, WINDOW_HEIGHT-170, bar_width, bar_height))
-        pygame.draw.rect(surface, (0, 0, 255), (WINDOW_WIDTH-200, WINDOW_HEIGHT-170, self.mana, bar_height))
+        pygame.draw.rect(surface, (50,50,50), (hud_x + 10, hud_y + 40, bar_width, bar_height))
+        pygame.draw.rect(surface, (0, 0, 255), (hud_x + 10, hud_y + 40, self.mana, bar_height))
 
     def take_dmg(self, dmg_value):
         self.health -= dmg_value

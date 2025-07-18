@@ -1,9 +1,9 @@
 import pygame
 import json
 
-from interactable import Interactable
-from camera import world_to_screen
-from quest_manager import QuestManager 
+from src.game.interactable import Interactable
+from src.game.camera import world_to_screen
+from src.game.quest_manager import QuestManager 
 from settings import WINDOW_HEIGHT, WINDOW_WIDTH
 
 class NPC(Interactable):

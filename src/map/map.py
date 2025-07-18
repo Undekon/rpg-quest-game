@@ -1,9 +1,9 @@
 import pygame
 import random
 
-from camera import world_to_screen
-from objects import Chest, Tree
-from npc import NPC
+from src.game.camera import world_to_screen
+from src.map.enviroment_objects import Chest, Tree
+from src.entities.npc import NPC
 
 
 class TileKind:
@@ -15,20 +15,26 @@ class TileKind:
         self.type = type
 
 class Map:
-    def __init__(self, map_file, object_layer, tile_kinds, tile_size, object_list):
+    def __init__(self, map_file, object_layer_file, tile_kinds, tile_size, object_list):
         self.tile_kinds = tile_kinds
         self.tile_size = tile_size
         self.object_list = object_list
         
         #Load map file (background)
-        map_file = open(map_file, "r")
-        map_data = map_file.read()
-        map_file.close
+        try:
+            with open(map_file, 'r') as file:
+                map_data = file.read()
+                print("[Map]: Successfully loaded map file!") #DEBUG
+        except Exception as e:
+            print(f"[Map]: Can't load map file: {e}") #Debug
 
-        #Load objects file 
-        object_file = open(object_layer, "r")
-        objects_data = object_file.read()
-        object_file.close()
+        #Load objects layer file 
+        try:
+            with open(object_layer_file, 'r') as file:
+                objects_data = file.read()
+                print("[Map]: Successfully loaded objects layer map file!") #DEBUG
+        except Exception as e:
+            print(f"[Map]: Can't load object layer map file: {e}") #Debug
 
         #Setup tiles from map data
         self.tiles = []
@@ -39,8 +45,10 @@ class Map:
                     tile_number = int(tile_number)
                     #set random grass tiles
                     if tile_number == 0:
-                        if random.random() < 0.02:
+                        if random.random() < 0.015:
                             tile_number = 5
+                        elif random.random() < 0.02:
+                            tile_number = 6
                         else:
                             tile_number = 0
                     row.append(int(tile_number))
@@ -85,6 +93,7 @@ class Map:
                                         tile_x,
                                         tile_y)
                             objects_on_map.append(tree)
+                        #ROCKS
         return objects_on_map
         
 
