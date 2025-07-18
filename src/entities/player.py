@@ -18,8 +18,6 @@ class Player:
         self.direction = 0 #0 - right, 1 - left
         self.player_rect = pygame.Rect(self.x_cord, self.y_cord, self.width, self.height)
 
-        self.active_quests = []
-
         #Stats
         self.health = 100
         self.stamina = 100
@@ -28,6 +26,9 @@ class Player:
         self.gold = 10
 
         self.inventory = Inventory(self.gold, self.exp)
+
+        #Quests
+        self.active_quests = []
 
     def handle_movement(self, keys, map, collision_objects):
         old_x = self.x_cord
@@ -105,6 +106,16 @@ class Player:
         pygame.draw.rect(surface, (50,50,50), (hud_x + 10, hud_y + 40, bar_width, bar_height))
         pygame.draw.rect(surface, (0, 0, 255), (hud_x + 10, hud_y + 40, self.mana, bar_height))
 
+        #DRAW ACTIVE QUESTS
+        font = pygame.font.SysFont(None, 24)
+        quests_title = font.render("Active Quests:", True, (255,255,255))
+        if self.active_quests:
+            surface.blit(quests_title, (50, 50))
+
+            for i, quest in enumerate(self.active_quests):
+                quest_text = font.render(f"- {quest['description']}", True, (255,255,255))
+                surface.blit(quest_text, (50, 80 + i * 30))
+
     def take_dmg(self, dmg_value):
         self.health -= dmg_value
 
@@ -113,7 +124,15 @@ class Player:
             if isinstance(object, Interactable):
                 if object.check_interaction(self.player_rect, keys):
                     object.interact()
-                    break
+
+    #Handle quests
+    def add_quest(self, quest_data):
+        if quest_data not in self.active_quests:
+            self.active_quests.append(quest_data)
+            print(f"[PlayerQuests]: Added new quest: {quest_data['id'], quest_data['description']}")
+            print(f"[Player]: Active quests: {self.active_quests}")
+            
+
 
 
     

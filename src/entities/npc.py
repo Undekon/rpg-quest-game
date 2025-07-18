@@ -1,13 +1,20 @@
 import pygame
 import json
+from src.game.button import Button
 
 from src.game.interactable import Interactable
 from src.game.camera import world_to_screen
 from src.game.quest_manager import QuestManager 
-from settings import WINDOW_HEIGHT, WINDOW_WIDTH
+
+global player_reference
+
+def set_player(player):
+    global player_reference
+    player_reference = player
 
 class NPC(Interactable):
     def __init__(self, name, image, npc_id, quest_id, x=0, y=0):
+        global player_reference
         self.image = pygame.image.load(image)
         self.name = name
         self.x_cord = x
@@ -17,11 +24,16 @@ class NPC(Interactable):
         self.is_completed = False
         self.quest_manager = QuestManager("data/quests.json")
         super().__init__(x, y, 32,32)
-        
         #Quest
         self.quest_id = quest_id
         self.quest_data = self.quest_manager.get_quest(self.quest_id)
+
+        #Dialogue panel
         self.visible_dialogue = False
+        button_width = 100
+        button_height = 40
+        self.accept_button = Button(0,0, button_width, button_height, "Accept", self.accept_quest)
+        self.decline_button = Button(0,0, button_width, button_height, "Decline", self.decline_quest)
         
     def draw(self, surface):
         surface.blit(self.image, world_to_screen((self.x, self.y)))
@@ -49,6 +61,38 @@ class NPC(Interactable):
             surface.blit(text_quest_description, (panel_x + 10, panel_y + 78))
             # surface.blit(text_quest_reward, (panel_x + 10, panel_y + 112))
 
+            #Buttons
+            self.accept_button.rect.topleft = (panel_x + 20, panel_y + panel_height - 50)
+            self.decline_button.rect.topleft = (panel_x + panel_width - 120, panel_y + panel_height - 50)
+
+            #---update buttons
+            mouse_pos = pygame.mouse.get_pos()
+            self.accept_button.update(mouse_pos)
+            self.decline_button.update(mouse_pos)
+
+            self.accept_button.draw(surface)
+            self.decline_button.draw(surface)
+
+            #Handle clicks
+            if pygame.mouse.get_pressed()[0]:
+                if self.accept_button.is_hovered:
+                    self.accept_button.action()
+                elif self.decline_button.is_hovered:
+                    self.decline_button.action()
+
+    ###########Interaction and quests
+    def accept_quest(self):
+        self.quest_manager.accept_quest(self.quest_id)
+        self.active_quest = True
+
+        player_reference.add_quest(self.quest_data)
+        
+        self.visible_dialogue = False
+
+
+    def decline_quest(self):
+        self.visible_dialogue = False
+
     def interact(self):
         if not self.is_completed:
             self.toggle_dialogue()
@@ -59,6 +103,7 @@ class NPC(Interactable):
 
     def toggle_dialogue(self):
         self.visible_dialogue = not self.visible_dialogue
+            
 
         
 

@@ -5,7 +5,6 @@ from src.game.camera import world_to_screen
 from src.map.enviroment_objects import Chest, Tree
 from src.entities.npc import NPC
 
-
 class TileKind:
     def __init__(self, name, image, is_solid, id, type):
         self.name = name

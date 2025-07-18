@@ -5,7 +5,7 @@ from settings import *
 from src.entities.player import Player
 from src.map.map import Map, load_tile_kinds
 from src.game.camera import create_screen
-from src.game.quest_manager import QuestManager
+from src.entities.npc import set_player
 
 pygame.init()
 
@@ -15,11 +15,13 @@ tile_kinds = load_tile_kinds(TILE_DATA)
 map = Map("src/maps/start.map", 'src/maps/object_layer.map', tile_kinds, TILE_SIZE, OBJECT_LIST)
 
 def main():
+    global player
     run = True
     clock = pygame.time.Clock()
     player = Player(PLAYER_IMAGE, PLAYER_SPEED)
     player.x_cord = WINDOW_WIDTH//2
     player.y_cord = WINDOW_HEIGHT//2
+    set_player(player)
 
     while run:
         clock.tick(FPS)
@@ -40,6 +42,7 @@ def main():
         player.inventory.draw(window)
 
         pygame.display.update()
+
 
 if __name__ == "__main__":
     main()
