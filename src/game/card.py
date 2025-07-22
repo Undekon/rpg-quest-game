@@ -3,7 +3,6 @@ import json
 
 class Card:
     def __init__(self, card_id, name, image, description, dmg, mana, defense, heal):
-
         self.id = card_id
         self.name = name
         self.image = pygame.image.load(image)
@@ -13,13 +12,13 @@ class Card:
         self.mana = mana
         self.defense = defense
         self.heal = heal
-
         self.is_hovered = False
 
     def draw(self, surface, position):
         surface.blit(self.image, position)
 
     def draw_hover_desc(self, surface, card_x, card_y):
+        #Show card description when mouse hovers
         desc_panel = pygame.Surface((200,100), pygame.SRCALPHA)
         desc_panel.fill((50,50,50,200))
         desc_x = card_x
@@ -35,7 +34,6 @@ class Card:
             text = font.render(lane, True, (255,255,255))
             surface.blit(text, (desc_x+10, desc_y+10+i*25))
         
-
 def load_card_data(cards_data_file):
     try:
         with open(cards_data_file, 'r') as file:

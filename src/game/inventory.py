@@ -40,22 +40,22 @@ class Inventory:
         #     self.items.append(card)
 
     def add_item(self, new_item):
-        card_data = None
-        for card in CARD_DATA:
-            if new_item["card_id"] == card['id']:
-                card_data = card
-                new_card = Card(
-                    card_data["id"],
-                    card_data['name'],
-                    card_data['image'],
-                    card_data['description'],
-                    card_data['dmg'],
-                    card_data['mana'],
-                    card_data['defense'],
-                    card_data['heal']
-                ) 
-        self.items.append(new_card)
-        print(f"[Inventory]: Added {new_card} to player inventory.")
+        # card_data = None
+        # for card in CARD_DATA:
+        #     if new_item["card_id"] == card['id']:
+        #         card_data = card
+        #         new_card = Card(
+        #             card_data["id"],
+        #             card_data['name'],
+        #             card_data['image'],
+        #             card_data['description'],
+        #             card_data['dmg'],
+        #             card_data['mana'],
+        #             card_data['defense'],
+        #             card_data['heal']
+        #         ) 
+        self.items.append(new_item)
+        # print(f"[Inventory]: Added {new_card} to player inventory.")
 
     def add_deck_card(self, card, max_cards):
         pass

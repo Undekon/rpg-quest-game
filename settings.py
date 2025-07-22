@@ -86,6 +86,3 @@ OBJECT_LIST = {
     9: {'type': 'npc', 'data': NPC_DATA[5]},
     10: {'type': 'npc', 'data': NPC_DATA[6]},
 }
-
-
-
