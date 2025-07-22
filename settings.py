@@ -30,6 +30,18 @@ TILE_DATA = [
     {"name": "grass2", "image": "assets/sprites/grass3.png", "is_solid": False, "id": 6, "type": 'map'},
 ]
 
+#CARDS
+CARD_ICON_WIDTH = 48
+CARD_ICON_HEIGT = 64
+
+CARD_DATA = [
+    {"id": 0, "name": "basic_attack", "image": 'assets/cards/attack_card.png', "description": 'Basic attack card', "dmg": 4, 'mana': 4, 'defense': 0, 'heal': 0},
+    {"id": 1, "name": "basic_defense", "image": 'assets/cards/defense_card.png', "description": 'Basic defense card', "dmg": 0, 'mana': 4, 'defense': 4, 'heal': 0},
+    {"id": 2, "name": "basic_heal", "image": 'assets/cards/heal_card.png', "description": 'Basic heal card', "dmg": 0, 'mana': 4, 'defense': 0, 'heal': 4}
+]
+
+
+
 #OBJECTS
 #---NPC LIST
 NPC_DATA = [
@@ -42,23 +54,24 @@ NPC_DATA = [
     {"name": "Orc", "image": "assets/sprites/orc_warrior.png", "id": 6, "quest_id": 5}
 ]
 
-#---CHESTS
+#---ENEMIES
+TREES = [
+    {'tree_id': 1, "image": "assets/sprites/tree1.png"},
+    {'tree_id': 2, "image": "assets/sprites/tree2.png"}
+]
+
+#CHESTS
 CHEST_DATA = [
     {"chest_id": 0, 
      "image": "assets/sprites/chest.png",""
      "type": "regular", 
-     "content": ["sword"]},
+     "content": [{"card_id": 0}, {"card_id": 1}]},
     {"chest_id": 1, 
      "image": "assets/sprites/chest.png",
      "type": "epic", 
      "content": ["potion"]}
 ]
 
-#---ENEMIES
-TREES = [
-    {'tree_id': 1, "image": "assets/sprites/tree1.png"},
-    {'tree_id': 2, "image": "assets/sprites/tree2.png"}
-]
 
 #---GENERAL
 OBJECT_LIST = {
@@ -74,12 +87,5 @@ OBJECT_LIST = {
     10: {'type': 'npc', 'data': NPC_DATA[6]},
 }
 
-#CARDS
-CARD_WIDTH = 64
-CARD_HEIGHT = 48
 
-CARD_DATA = [
-    {"id": 0, "name": "basic_attack", "image": 'assets/cards/attack_card.png', "description": 'Basic attack card', "dmg": 4, 'mana': 4, 'defense': 0, 'heal': 0},
-    {"id": 1, "name": "basic_defense", "image": 'assets/cards/defense_card.png', "description": 'Basic defense card', "dmg": 0, 'mana': 4, 'defense': 4, 'heal': 0},
-    {"id": 2, "name": "basic_heal", "image": 'assets/cards/heal_card.png', "description": 'Basic heal card', "dmg": 0, 'mana': 4, 'defense': 0, 'heal': 4}
-]
+

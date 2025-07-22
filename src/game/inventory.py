@@ -5,7 +5,6 @@ from .card import Card
 class Inventory:
     def __init__(self, gold, exp):
         self.visible = False  
-
         #ITEMS
         self.items = []      
         self.deck = []
@@ -18,32 +17,45 @@ class Inventory:
         self.panel_x = (WINDOW_WIDTH - self.panel_width)//2
         self.panel_y = (WINDOW_HEIGHT - self.panel_height)//2
         self.font = pygame.font.SysFont(None, 24)
-        
         self.max_cards_row = 5
-        #Cards
-        self.card_icon_width = 48
-        self.card_icon_height = 64
-        self.card_icon_margin = 20
         
+        #Cards
+        self.card_icon_width = CARD_ICON_WIDTH
+        self.card_icon_height = CARD_ICON_HEIGT
+        self.card_icon_margin = 20
 
         #Test cards
-        self.test_card = [
-            Card(0, "basic_attack", "assets/cards/attack_card.png", "Basic sword attack", 4, 4, 0, 0),
-            Card(1, "basic_defense", "assets/cards/defense_card.png", "Basic shield defense", 0, 4, 4, 0),
-            Card(2, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(3, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(4, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(5, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(6, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(7, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
-            Card(8, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0)
-        ]
-        
-        for card in self.test_card:
-            self.add_inventory_card(card)
+        # self.test_card = [
+        #     Card(0, "basic_attack", "assets/cards/attack_card.png", "Basic sword attack", 4, 4, 0, 0),
+        #     Card(1, "basic_defense", "assets/cards/defense_card.png", "Basic shield defense", 0, 4, 4, 0),
+        #     Card(2, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(3, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(4, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(5, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(6, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(7, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0),
+        #     Card(8, "basic_defense", "assets/cards/heal_card.png", "Basic shield defense", 0, 4, 0, 0)
+        # ]
+        # for card in self.test_card:
+        #     self.items.append(card)
 
-    def add_inventory_card(self, card):
-        self.items.append(card)
+    def add_item(self, new_item):
+        card_data = None
+        for card in CARD_DATA:
+            if new_item["card_id"] == card['id']:
+                card_data = card
+                new_card = Card(
+                    card_data["id"],
+                    card_data['name'],
+                    card_data['image'],
+                    card_data['description'],
+                    card_data['dmg'],
+                    card_data['mana'],
+                    card_data['defense'],
+                    card_data['heal']
+                ) 
+        self.items.append(new_card)
+        print(f"[Inventory]: Added {new_card} to player inventory.")
 
     def add_deck_card(self, card, max_cards):
         pass
@@ -83,7 +95,8 @@ class Inventory:
             slot_y = deck_y + i * (self.card_icon_width + self.card_icon_margin)
 
             pygame.draw.rect(surface, (70,70,90), (slot_x, slot_y, self.card_icon_width, self.card_icon_height), 2)
-
+        
+        mouse_pos = pygame.mouse.get_pos()
         #LEFT SIDE - inventory section
         cards_start_x = self.panel_x + 20
         cards_start_y = self.panel_y + 50
@@ -97,7 +110,11 @@ class Inventory:
             card_y = cards_start_y + row * (self.card_icon_height + self.card_icon_margin)
             
             surface.blit(card.icon, (card_x, card_y))
+            #Draw slot frame
             pygame.draw.rect(surface, (100,100,120), (card_x, card_y, self.card_icon_width, self.card_icon_height), 1)
 
-
-
+            #Draw card description
+            card_rect = pygame.Rect(card_x, card_y, self.card_icon_width, self.card_icon_height)
+            card.is_hovered = card_rect.collidepoint(mouse_pos)
+            if card.is_hovered:
+                card.draw_hover_desc(surface, card_x, card_y)

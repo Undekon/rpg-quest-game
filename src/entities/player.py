@@ -5,6 +5,7 @@ from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WID
 from src.game.physics import check_collision, check_collisions_with_objects
 from src.game.interactable import Interactable
 from src.game.inventory import Inventory
+from src.map.enviroment_objects import Chest
 
 class Player:
     def __init__(self, image, speed):
@@ -124,7 +125,10 @@ class Player:
         for object in interactables:
             if isinstance(object, Interactable):
                 if object.check_interaction(self.player_rect, keys):
-                    object.interact()
+                    if isinstance(object, Chest):
+                        object.interact(self)
+                    else:
+                        object.interact()
 
     #Handle quests
     def add_quest(self, quest_data):
@@ -132,8 +136,3 @@ class Player:
             self.active_quests.append(quest_data)
             print(f"[PlayerQuests]: Added new quest: {quest_data['id'], quest_data['description']}")
             print(f"[Player]: Active quests: {self.active_quests}")
-            
-    #Handle chest interaction
-
-
-    

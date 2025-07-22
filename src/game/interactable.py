@@ -6,7 +6,7 @@ class Interactable:
     def __init__(self, x, y, width, height):
         self.interact_icon = pygame.image.load("assets/icons/interaction_icon.png")
         self.interact_key = pygame.K_e
-        self.interaction_area = pygame.Rect(x-TILE_SIZE, y-TILE_SIZE, width+(TILE_SIZE * 2), height+(TILE_SIZE * 2))
+        self.interaction_area = pygame.Rect(x-TILE_SIZE + 16, y-TILE_SIZE + 16, width+(TILE_SIZE ), height+(TILE_SIZE))
         self.x = x
         self.y = y
         self.show_icon = False
@@ -21,8 +21,8 @@ class Interactable:
 
     def draw_interaction_elements(self, surface):
         #Debug area
-        # screen_rect = pygame.Rect(world_to_screen((self.interaction_area.x, self.interaction_area.y)),(self.interaction_area.width, self.interaction_area.height))
-        # pygame.draw.rect(surface, (255, 0, 0), screen_rect, 2)
+        screen_rect = pygame.Rect(world_to_screen((self.interaction_area.x, self.interaction_area.y)),(self.interaction_area.width, self.interaction_area.height))
+        pygame.draw.rect(surface, (255, 0, 0), screen_rect, 2)
 
         if self.show_icon:
             surface.blit(self.interact_icon, world_to_screen((self.x - 3, self.y - 35)))

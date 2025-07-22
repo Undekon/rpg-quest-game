@@ -1,7 +1,7 @@
 import pygame
 import json
-from src.game.button import Button
 
+from src.game.button import Button
 from src.game.interactable import Interactable
 from src.game.camera import world_to_screen
 from src.game.quest_manager import QuestManager 
