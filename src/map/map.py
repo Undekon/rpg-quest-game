@@ -4,6 +4,7 @@ import random
 from src.game.camera import world_to_screen
 from src.map.enviroment_objects import Chest, Tree
 from src.entities.npc import NPC
+from src.entities.enemies import Enemy
 
 class TileKind:
     def __init__(self, name, image, is_solid, id, type):
@@ -92,7 +93,17 @@ class Map:
                                         tile_x,
                                         tile_y)
                             objects_on_map.append(tree)
-                        #ROCKS
+                        #ENEMIES
+                        if curr_obj_data['type'] == 'enemy':
+                            enemy = Enemy(curr_obj_data['data']['id'],
+                                          curr_obj_data['data']['name'],
+                                          curr_obj_data['data']['image'],
+                                          curr_obj_data['data']['lvl'],
+                                          curr_obj_data['data']['hp'],
+                                          curr_obj_data['data']['mana'],
+                                          tile_x,
+                                          tile_y)
+                            objects_on_map.append(enemy)
         return objects_on_map
         
 

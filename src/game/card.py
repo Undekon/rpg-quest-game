@@ -1,12 +1,14 @@
 import pygame
 import json
+from settings import CARD_ICON_HEIGT, CARD_ICON_WIDTH
 
 class Card:
-    def __init__(self, card_id, name, image, description, dmg, mana, defense, heal):
+    def __init__(self, card_id, type, name, image, description, dmg, mana, defense, heal):
         self.id = card_id
+        self.type = type
         self.name = name
         self.image = pygame.image.load(image)
-        self.icon = pygame.transform.scale(self.image, (self.image.get_width() + 16, self.image.get_height() + 16))
+        self.icon = pygame.transform.scale(self.image, (CARD_ICON_WIDTH, CARD_ICON_HEIGT))
         self.description = description
         self.dmg = dmg
         self.mana = mana

@@ -1,11 +1,12 @@
 import pygame
 
 from src.game.camera import *
-from settings import MAP_HEIGHT, MAP_WIDTH, TILE_SIZE, WINDOW_HEIGHT, WINDOW_WIDTH
+from settings import *
 from src.game.physics import check_collision, check_collisions_with_objects
 from src.game.interactable import Interactable
 from src.game.inventory import Inventory
 from src.map.enviroment_objects import Chest
+from src.entities.enemies import Enemy
 
 class Player:
     def __init__(self, image, speed):
@@ -24,9 +25,10 @@ class Player:
         self.stamina = 100
         self.mana = 100
         self.exp = 0
-        self.gold = 10
+        self.level = 1
+        self.exp_to_lvlup = EXP_PER_LEVEL
 
-        self.inventory = Inventory(self.gold, self.exp)
+        self.inventory = Inventory()
 
         #Quests
         self.active_quests = []
@@ -76,6 +78,13 @@ class Player:
         if keys[pygame.K_i]:
             self.inventory.toggle()
             pygame.time.delay(200)
+
+        ##########################DEBUG
+        if keys[pygame.K_u]:
+            self.add_exp(10)
+        
+        if keys[pygame.K_g]:
+            self.inventory.add_gold(10)
     
     def draw(self, surface):
         if self.direction == 0:
@@ -86,11 +95,12 @@ class Player:
         surface.blit(self.image, world_to_screen((self.x_cord, self.y_cord)))
 
     def draw_hud(self, surface):
+        font = pygame.font.SysFont(None, 24)
         bar_width = 100
         bar_height = 10
 
-        hud_panel_width = 150
-        hud_panel_height = 60
+        hud_panel_width = 350
+        hud_panel_height = 100
         hud_x = 0
         hud_y = WINDOW_HEIGHT - hud_panel_height
 
@@ -108,6 +118,10 @@ class Player:
         pygame.draw.rect(surface, (50,50,50), (hud_x + 10, hud_y + 40, bar_width, bar_height))
         pygame.draw.rect(surface, (0, 0, 255), (hud_x + 10, hud_y + 40, self.mana, bar_height))
 
+        #LEVEL
+        lvl_text = font.render(f"Level: {self.level}    {self.exp}/{self.exp_to_lvlup}", True, (255,255,255))
+        surface.blit(lvl_text, (hud_x + 10, hud_y + 70))
+
         #DRAW ACTIVE QUESTS
         font = pygame.font.SysFont(None, 24)
         quests_title = font.render("Active Quests:", True, (255,255,255))
@@ -117,9 +131,26 @@ class Player:
             for i, quest in enumerate(self.active_quests):
                 quest_text = font.render(f"- {quest['description']}", True, (255,255,255))
                 surface.blit(quest_text, (50, 80 + i * 30))
+    
+    #Handle EXP and levels
+    def add_exp(self, ammount):
+        self.exp += ammount
+        print(f"[Player]: Gained {ammount} EXP: Total: {self.exp}/{self.exp_to_lvlup} EXP.") #DEBUG
 
-    def take_dmg(self, dmg_value):
-        self.health -= dmg_value
+        while self.exp >= self.exp_to_lvlup:
+            self.level_up()
+
+    def level_up(self):
+        self.level += 1
+        self.exp -= self.exp_to_lvlup
+        self.exp_to_lvlup = int(EXP_PER_LEVEL * (1.1 ** (self.level - 1))) #Increase required EXP by 10% per lvl
+
+        #Increase stats
+        self.health += HEALTH_PER_LEVEL
+        self.mana += MANA_PER_LEVEL
+        self.stamina += STAMINA_PER_LEVEL
+
+        print(f"[Player]: Level Up! Now level: {self.level}. Next level at {self.exp_to_lvlup} EXP.")
 
     def handle_interaction(self, interactables, keys):
         for object in interactables:

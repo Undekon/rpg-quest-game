@@ -22,8 +22,8 @@ class Chest(Interactable):
 
         #Content panel
         self.visible_panel = False
-        self.panel_width = 300
-        self.panel_height = 200
+        self.panel_width = 400
+        self.panel_height = 250
         screen_x, screen_y = world_to_screen((self.x_cord, self.y_cord)) 
         self.panel_x = screen_x - self.panel_width //2 + self.image.get_width() //2
         self.panel_y = screen_y - self.panel_height - 40
@@ -43,6 +43,7 @@ class Chest(Interactable):
                     card_data = card
                     temp_card = Card(
                                 card_data["id"],
+                                card_data['type'],
                                 card_data['name'],
                                 card_data['image'],
                                 card_data['description'],
@@ -81,7 +82,7 @@ class Chest(Interactable):
 
                 #Draw cards icons
                 icon_start_x = self.panel_x + 20
-                icon_start_y = self.panel_y + 50
+                icon_start_y = self.panel_y + 20
                 icon_margin = 20
                 for i, card in enumerate(self.content_cards):
                     icon_x = icon_start_x + i * (CARD_ICON_WIDTH + icon_margin)

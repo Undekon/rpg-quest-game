@@ -3,14 +3,14 @@ from settings import *
 from src.game.camera import world_to_screen
 
 class Interactable:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, hitbox_width, hitbox_height):
         self.interact_icon = pygame.image.load("assets/icons/interaction_icon.png")
         self.interact_key = pygame.K_e
-        self.interaction_area = pygame.Rect(x-TILE_SIZE + 16, y-TILE_SIZE + 16, width+(TILE_SIZE ), height+(TILE_SIZE))
+        self.interaction_area = pygame.Rect(x-TILE_SIZE + 16, y-TILE_SIZE + 16, hitbox_width+(TILE_SIZE ), hitbox_height+(TILE_SIZE))
         self.x = x
         self.y = y
         self.show_icon = False
-        self.rect = pygame.Rect(self.x, self.y, width, height)
+        self.rect = pygame.Rect(self.x, self.y, hitbox_width, hitbox_height)
 
     def check_interaction(self, player_rect, keys):
         self.show_icon = self.interaction_area.colliderect(player_rect)
